@@ -1,0 +1,126 @@
+public class Main {
+
+    public static void main(String[] args) {
+        // Existing code...
+
+        SavingsAccount savAccObj = new SavingsAccount(555, "Jack", 60000, 7.5f);
+        savAccObj.showBankAccount();
+        savAccObj.calculateSimpleInterest();
+
+        // Create and display a Fixed Deposit Account
+        FixedDepositAccount fdAccObj = new FixedDepositAccount(777, "Alice", 100000, 8.0f, 3);
+        fdAccObj.showBankAccount();
+        fdAccObj.calculateSimpleInterest();
+
+        // Create and display a Credit Card Account
+        CreditCardAccount ccAccObj = new CreditCardAccount(888, "Bob", -5000, 10000);
+        ccAccObj.showBankAccount();
+        ccAccObj.makePurchase(3000);
+        ccAccObj.showBankAccount();
+
+        // Create and display a Current Account
+        CurrentAccount currAccObj = new CurrentAccount(999, "Eve", 20000, 5000);
+        currAccObj.showBankAccount();
+        currAccObj.withdraw(7000);
+        currAccObj.showBankAccount();
+    }
+}
+
+class BankAccount {
+    int accountNumber;
+    String accountHolder;
+    double accountBalance;
+
+    BankAccount(int x, String y, double z) {
+        System.out.println("BankAccount ctor...");
+        accountNumber = x;
+        accountHolder = y;
+        accountBalance = z;
+    }
+
+    void withdraw(float amt) {
+        System.out.println(accountHolder + " is withdrawing..." + amt);
+        accountBalance -= amt;
+    }
+
+    void deposit(float amt) {
+        System.out.println(accountHolder + " is depositing..." + amt);
+        accountBalance += amt;
+    }
+
+    void showBankAccount() {
+        System.out.println("------object hashcode---" + toString());
+        System.out.println("ACNO   : " + accountNumber);
+        System.out.println("ACNAME : " + accountHolder);
+        System.out.println("ACBAL  : " + accountBalance);
+        System.out.println("-------------------");
+    }
+}
+
+class SavingsAccount extends BankAccount {
+    float rateOfInterest;
+
+    SavingsAccount(int a, String b, double c, float d) {
+        super(a, b, c);
+        rateOfInterest = d;
+        System.out.println("SavingsAccount ctor...");
+    }
+
+    void calculateSimpleInterest() {
+        double si = (accountBalance * 1 * rateOfInterest) / 100;
+        System.out.println("SI : " + si);
+    }
+
+    @Override
+    void showBankAccount() {
+        super.showBankAccount();
+        System.out.println("RATE : " + rateOfInterest);
+    }
+}
+
+class FixedDepositAccount extends SavingsAccount {
+    int tenure;
+
+    FixedDepositAccount(int a, String b, double c, float d, int tenure) {
+        super(a, b, c, d);
+        this.tenure = tenure;
+        System.out.println("FixedDepositAccount ctor...");
+    }
+    // Additional methods or overrides specific to Fixed Deposit Account can be added here
+}
+
+class CreditCardAccount extends BankAccount {
+    double creditLimit;
+
+    CreditCardAccount(int a, String b, double c, double creditLimit) {
+        super(a, b, c);
+        this.creditLimit = creditLimit;
+        System.out.println("CreditCardAccount ctor...");
+    }
+
+    void makePurchase(double amount) {
+        System.out.println(accountHolder + " made a purchase of $" + amount + " using the credit card.");
+        accountBalance -= amount;
+    }
+    // Additional methods or overrides specific to Credit Card Account can be added here
+}
+
+class CurrentAccount extends BankAccount {
+    double overdraftLimit;
+
+    CurrentAccount(int a, String b, double c, double overdraftLimit) {
+        super(a, b, c);
+        this.overdraftLimit = overdraftLimit;
+        System.out.println("CurrentAccount ctor...");
+    }
+
+    @Override
+    void withdraw(float amt) {
+        if (accountBalance - amt < -overdraftLimit) {
+            System.out.println("Withdrawal exceeds overdraft limit. Transaction denied.");
+        } else {
+            super.withdraw(amt);
+        }
+    }
+    // Additional methods or overrides specific to Current Account can be added here
+}
