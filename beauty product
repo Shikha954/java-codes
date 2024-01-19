@@ -1,0 +1,135 @@
+
+// BeautyProduct is-a base class
+class BeautyProduct {
+    String name;
+    double price;
+
+    public BeautyProduct(String name, double price) {
+        this.name = name;
+        this.price = price;
+    }
+}
+
+// BeautyCosmetics is-a specialization of BeautyProduct
+class BeautyCosmetics extends BeautyProduct {
+    String category;
+
+    // BeautyCosmetics has-a brand association
+    Brand brand;
+
+    // BeautyCosmetics produces-a fragrance association
+    ProducesFragrance producesFragrance;
+
+    // BeautyCosmetics uses-a ingredient association
+    UsesIngredient usesIngredient;
+
+    public BeautyCosmetics(String name, double price, String category, Brand brand,
+                           ProducesFragrance producesFragrance, UsesIngredient usesIngredient) {
+        super(name, price);
+        this.category = category;
+        this.brand = brand;
+        this.producesFragrance = producesFragrance;
+        this.usesIngredient = usesIngredient;
+    }
+}
+
+// Brand is-a class
+class Brand {
+    String name;
+
+    public Brand(String name) {
+        this.name = name;
+    }
+}
+
+// ProducesFragrance is-a class
+class ProducesFragrance {
+    String fragrance;
+
+    public ProducesFragrance(String fragrance) {
+        this.fragrance = fragrance;
+    }
+}
+
+// UsesIngredient is-a class
+class UsesIngredient {
+    String ingredient;
+
+    public UsesIngredient(String ingredient) {
+        this.ingredient = ingredient;
+    }
+}
+
+// Example usage
+// public class BeautyCosmeticsExample {
+//     public static void main(String[] args) {
+//         Brand loreal = new Brand("L'Oreal");
+//         ProducesFragrance floralFragrance = new ProducesFragrance("Floral");
+//         UsesIngredient hyaluronicAcid = new UsesIngredient("Hyaluronic Acid");
+
+//         BeautyCosmetics lipstick = new BeautyCosmetics("Lipstick", 15.99, "Makeup",
+//                 loreal, floralFragrance, hyaluronicAcid);
+
+//         System.out.println("Product: " + lipstick.name);
+//         System.out.println("Category: " + lipstick.category);
+//         System.out.println("Brand: " + lipstick.brand.name);
+//         System.out.println("Price: $" + lipstick.price);
+//         System.out.println("Fragrance: " + lipstick.producesFragrance.fragrance);
+//         System.out.println("Ingredient: " + lipstick.usesIngredient.ingredient);
+//     }
+// }
+// FacePowder is-a specialization of BeautyProduct
+class FacePowder extends BeautyProduct {
+    String skinType;
+
+    // FacePowder has-a brand association
+    Brand brand;
+
+    // FacePowder produces-a fragrance association
+    ProducesFragrance producesFragrance;
+
+    // FacePowder uses-a ingredient association
+    UsesIngredient usesIngredient;
+
+    public FacePowder(String name, double price, String skinType, Brand brand,
+                      ProducesFragrance producesFragrance, UsesIngredient usesIngredient) {
+        super(name, price);
+        this.skinType = skinType;
+        this.brand = brand;
+        this.producesFragrance = producesFragrance;
+        this.usesIngredient = usesIngredient;
+    }
+}
+
+// Example usage
+public class BeautyCosmeticsExample {
+    public static void main(String[] args) {
+        Brand loreal = new Brand("L'Oreal");
+        ProducesFragrance floralFragrance = new ProducesFragrance("Floral");
+        UsesIngredient hyaluronicAcid = new UsesIngredient("Hyaluronic Acid");
+
+        BeautyCosmetics lipstick = new BeautyCosmetics("Lipstick", 15.99, "Makeup",
+                loreal, floralFragrance, hyaluronicAcid);
+
+        FacePowder compactPowder = new FacePowder("Compact Powder", 20.99, "All Skin Types",
+                loreal, floralFragrance, hyaluronicAcid);
+
+        // Display details for Lipstick
+        System.out.println("Product: " + lipstick.name);
+        System.out.println("Category: " + lipstick.category);
+        System.out.println("Brand: " + lipstick.brand.name);
+        System.out.println("Price: $" + lipstick.price);
+        System.out.println("Fragrance: " + lipstick.producesFragrance.fragrance);
+        System.out.println("Ingredient: " + lipstick.usesIngredient.ingredient);
+
+        System.out.println();
+
+        // Display details for Compact Powder
+        System.out.println("Product: " + compactPowder.name);
+        System.out.println("Skin Type: " + compactPowder.skinType);
+        System.out.println("Brand: " + compactPowder.brand.name);
+        System.out.println("Price: $" + compactPowder.price);
+        System.out.println("Fragrance: " + compactPowder.producesFragrance.fragrance);
+        System.out.println("Ingredient: " + compactPowder.usesIngredient.ingredient);
+    }
+}
